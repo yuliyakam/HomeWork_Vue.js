@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2>Задание 1</h2>
+      <p>
+        Создать кнопку "Перевернуть". При клике на кнопку текст кнопки должен
+        перевернуться и отобразиться в обратном порядке.
+      </p>
+      <hr />
+      <button @click="revertName">{{btnName}}</button>
+      <hr />
+
+      <h2>Задание 2</h2>
+      <p>
+        Есть список элементов. Пользователь может добавлять новые элементы
+        списка с текстом “Новый элемент списка” нажав на кнопку "Добавить".
+      </p>
+      <hr />
+      <ul>
+        <!-- здесь хотела, чтоб удалался только тот эл-т на котором клик -->
+
+        <li
+          v-for="(item, index) in arrList"
+          :key="index.id"
+          @click="toShow"
+          v-if="flag && arrList[index] === item"    
+        >
+          {{item}}
+        </li>
+      </ul>
+      <button @click="addNewListsEl">Добавить</button>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <script>
+      const App = {
+        data() {
+          return {
+            btnName: "Перевернуть",
+            newLi: "",
+            arrList: [],
+            flag: true,
+          };
+        },
+        methods: {
+          revertName() {
+            this.btnName = this.btnName.split("").reverse().join("");
+          },
+          addNewListsEl() {
+            this.arrList.push("Новый элемент списка");
+            this.flag = true;
+          },
+          toShow() {
+            this.flag = !this.flag;
+          },
+        },
+      };
+      Vue.createApp(App).mount("#app");
+    </script>
+  </body>
+</html>
